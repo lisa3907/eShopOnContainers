@@ -61,4 +61,9 @@ public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
             throw;
         }
     }
+
+    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

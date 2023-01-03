@@ -109,8 +109,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSwaggerGen(options =>
         {
-            options.DescribeAllEnumsAsStrings();
-
+            //options.DescribeAllEnumsAsStrings();
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Shopping Aggregator for Web Clients",

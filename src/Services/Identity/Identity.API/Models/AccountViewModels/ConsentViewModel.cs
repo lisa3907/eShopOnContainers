@@ -1,4 +1,4 @@
-﻿using IdentityServer4.Models;
+﻿using System.Linq;
 
 namespace Microsoft.eShopOnContainers.Services.Identity.API.Models.AccountViewModels
 {
@@ -17,7 +17,8 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Models.AccountViewMo
             AllowRememberConsent = client.AllowRememberConsent;
 
             IdentityScopes = resources.IdentityResources.Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
-            ResourceScopes = resources.ApiResources.SelectMany(x => x.Scopes).Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
+            //ResourceScopes = resources.ApiResources.SelectMany(x => x.Scopes).Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
+            ResourceScopes = resources.ApiResources.Select(x => new ScopeViewModel(x, ScopesConsented.Contains(x.Name) || model == null)).ToArray();
         }
 
         public string ClientName { get; init; }
@@ -31,14 +32,14 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Models.AccountViewMo
 
     public record ScopeViewModel
     {
-        public ScopeViewModel(Scope scope, bool check)
+        public ScopeViewModel(ApiResource scope, bool check)
         {
             Name = scope.Name;
             DisplayName = scope.DisplayName;
             Description = scope.Description;
-            Emphasize = scope.Emphasize;
-            Required = scope.Required;
-            Checked = check || scope.Required;
+            //Emphasize = scope.Emphasize;
+            //Required = scope.Required;
+            Checked = check;// || scope.Required;
         }
 
         public ScopeViewModel(IdentityResource identity, bool check)
